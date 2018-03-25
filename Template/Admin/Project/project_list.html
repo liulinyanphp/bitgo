@@ -1,0 +1,190 @@
+        <script type="text/javascript">
+            $(document).delegate("[id='selAllpro']",'click',function(){
+                var allck = $("#selAllpro").prop('checked');
+                var checked = $(this).prop('checked');
+                $('input[name="ck_proid"]').prop('checked',checked);
+                if(!checked){
+                    $('#selAllpro').prop('checked',checked);
+                }
+                if(checked && allck){
+                    $('#selAllpro').prop('checked',checked);   
+                }
+            });
+
+            $(document).delegate('input[name="ck_proid"]','click',function(){
+                var checked = $(this).prop('checked');
+                if(!checked){
+                    $('#selAllpro').prop('checked',checked);
+                }else{
+                    var allChecked = true;
+                    $.each($('input[name="ck_proid"]'),function(k,v){
+                        var checked = $(v).prop('checked');
+                        if(!checked){
+                            allChecked = false;
+                        }
+                    })
+                    $('#selAll').prop('checked',allChecked);
+                }
+            });
+            function exportpro(typeid)
+            {
+                var str = '';
+                $.each($('input[name="ck_proid"]'),function(k,v){
+                    var checked = $(v).prop('checked');
+                    if(checked){
+                        str += $(this).val()+',';
+                    }
+                });
+                if(str ==''){
+                    alert('请选择您要导出的记录');
+                    return false;
+                }
+
+                if(typeid==1)
+                {
+                    var url = "{:U('Admin/project/pro_export',array('proid'=>'0'))}"+','+str;
+                    location.href = url;
+                }else if(typeid==2)
+                {
+                    var url = "{:U('Admin/project/pro_sendto_email',array('proid'=>'0'))}"+','+str;
+                    location.href = url;
+                }else if(typeid ==3)
+                {
+                    $.ajax({
+                        url:"{:U('Admin/project/targ_check')}",
+                        type:"post",
+                        data:{proid:'0,'+str},
+                        success:function(data){
+                            //如果图片成功则把图片的路径赋值给缩略图显示的地方
+                            //定义一个变量表示是第几个按钮上传
+                            //console.log(data);
+                            //console.log(data);
+                            alert(data);
+                        },
+                        error:function(e){
+                            //alert("错误！！");
+                            //window.clearInterval(timer);
+                        }
+                    });
+                }else if(typeid ==4)
+                {
+                    var url = "{:U('Admin/project/upprice_for_prolist',array('proid'=>'0'))}"+','+str;
+                    location.href = url;
+                }      
+            }
+        </script>
+    </div>
+
+    <div class=" admin-content">
+        <div class="daohang">
+            <ul>
+                <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页 </li>
+                <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">项目列表
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button>
+                </li>
+            </ul>
+        </div>
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="am-icon-flag on"> 项目列表</ul>
+                <dl class="am-icon-home" style="float: right;">当前位置： <a href="{:U('index/index')}">首页</a> > 
+                        项目列表
+                </dl>
+                <dl>
+                    <a href="{:U('project_edit')}" class="am-btn am-btn-danger am-round am-btn-xs am-icon-plus" >
+                        新增项目
+                    </a>
+                </dl>
+                <!--这里打开的是新页面-->
+            </div>
+            <!--列表显示页面-->
+            <form class="am-form am-g">
+                <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped am-table-hover">
+                <thead>
+                    <tr class="am-success">
+                    <th class="table-check"><input type="checkbox" name="selAllpro"  id="selAllpro"/></th>
+                    <th class="table-id">ID</th>
+                    <th class="table-title">项目名称</th>
+                    <th class="table-type">代币名称</th>
+                    <th class="table-author am-hide-sm-only">额度</th>
+                    <th class="table-author am-hide-sm-only">代币数</th>
+                    <th class="table-author am-hide-sm-only">交易所</th>
+                    <!--<th class="table-author am-hide-sm-only">锁仓情况</th>-->
+                    <th class="table-author am-hide-sm-only">ICO成本</th>
+                    <th class="table-author am-hide-sm-only">现价</th>
+                    <th class="table-author am-hide-sm-only">基本币元</th>
+                    <th class="table-author am-hide-sm-only">目前收益率</th>
+                    
+                    <th class="table-date am-hide-sm-only">添加日期</th>
+                    <th width="100px" class="table-set">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="prolist" id="proinfo">
+                        <tr>
+                            <td><input type="checkbox" name="ck_proid" value="{$proinfo.pro_id}" /></td>
+                            <td>{$proinfo.pro_id}</td>
+                            <td>{$proinfo.pro_name}</td>
+                            <td>{$proinfo.pro_daibi_name}</td>
+                            <td class="am-hide-sm-only">{$proinfo.pro_money}</td>
+                            <td class="am-hide-sm-only">{$proinfo.pro_num}</td>
+                            <td class="am-hide-sm-only">{$proinfo.pro_trade_net}</td>
+                            <!--<td class="am-hide-sm-only">{$proinfo.pro_status_desc}</td>-->
+                            <td class="am-hide-sm-only">{$proinfo.pro_ico_base_price}</td>
+                            <td class="am-hide-sm-only">{$proinfo.pro_ico_now_price}</td>
+                            <td class="am-hide-sm-only">{$proinfo.pro_money_basebi_name}</td> 
+                            <td class="am-hide-sm-only">{$proinfo.pro_money_percent}%</td>
+                            <td class="am-hide-sm-only">{$proinfo['pro_add_time']|substr=0,10}</td>
+                            <td>      
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改项目资料" href="{:U('project_edit',array('id'=>$proinfo['pro_id']))}">
+                                        <span class="am-icon-pencil-square-o"></span>
+                                    </a>
+                                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除项目">
+                                        <span class="am-icon-trash-o" ></span>
+                                    </button>
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                    </volist>
+                </tbody>
+                </table>   
+                <!-- <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 删除</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 移动</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>-->
+                <div class="am-btn-group am-btn-group-xs">
+                    <button type="button" class="am-btn am-btn-default" onclick="exportpro(1);">
+                        <span class="am-icon-save"></span>导出
+                    </button>
+                    <button type="button" class="am-btn am-btn-default" onclick="exportpro(2);">
+                        <span class="am-icon-archive"></span>发到邮箱
+                    </button>
+                    <button type="button" class="am-btn am-btn-default" onclick="exportpro(3)">
+                        <span class="am-icon-plus"></span>阀值检测
+                    </button>
+                    <button type="button" class="am-btn am-btn-default" onclick="exportpro(4)">
+                        <span class="am-icon-search"></span>价格更新
+                    </button>
+                </div>
+                <ul class="am-pagination am-fr">
+                    <!-- <li class="am-disabled"><a href="#">«</a></li>
+                    <li class="am-active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li> -->
+                    {$pager}
+                </ul>
+                <hr />
+                <p>注：.....</p>
+            </form>

@@ -1,0 +1,135 @@
+    <div class=" admin-content">
+        <div class="daohang">
+            <ul>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页 </li>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">项目列表
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button>
+            </li>
+            </ul>
+        </div>
+        <div class="admin-biaogelist">
+            <div class="listbiaoti am-cf">
+                <ul class="am-icon-flag on"> {$title}</ul>    
+                <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > 
+                    <a href="{:U('project_list')}">
+                        项目列表
+                    </a> > {$title}
+                </dl>
+            </div>
+            <div class="fbneirong">
+                <form class="am-form" action="{:U('project_edit')}" method="POST">
+                <div class="am-form-group am-cf">
+                    <div class="zuo">项目名称：</div>
+                    <div class="you">
+                        <input type="hidden" name="id" value="{$data.id|default=0}">
+                        <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="name" placeholder="请输入项目名称" value="{$data.name}">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">ico代币名称：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="daibi_name" placeholder="请输入ico代币名称" value="{$data.daibi_name}">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">获取价格的别名：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="alias" placeholder="请输入ico代币名称" value="{$data.alias}">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">基本币元名称：</div>
+                    <div class="you">
+                    <select data-am-selected="{btnWidth: 100%, btnSize: 'sm', btnStyle: 'default'}" name="money_basebi_name">
+                        <option value="ETH">以太坊ETH</option>
+                        <option value="BTC">比特币BTC</option>
+                        <option value="USDT">泰达币USDT</option>
+                    </select>
+                    </div>
+                </div>        
+                <div class="am-form-group am-cf">
+                    <div class="zuo">额度：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="money" value="{$data.money}" placeholder="请输入您的投资额度(投入了多少个基本单位币元)">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">折合代币数：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="num" value="{$data.num}" placeholder="请输入折合代币数">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">交易所：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="trade_net" value="{$data.trade_net}" placeholder="请输入您投资的交易所">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">目标收益率%：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="tag_money_percent" value="{$data.tag_money_percent}" placeholder="请输入您的目标收益率如10%,收益率大于等于10则发邮件提醒您">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">止损阀值%：</div>
+                    <div class="you">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" name="low_money_percent" value="{$data.low_money_percent}" placeholder="请输入您的止损阀值如5%,收益率低于5则发邮件提醒您">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">锁仓情况：</div>
+                    <div class="you">
+                    <textarea class="" rows="4" id="doc-ta-1" name="status_desc">{$data.status_desc}</textarea>
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">提醒邮件设置：</div>
+                    <div class="you">
+                    <textarea class="" rows="4" id="doc-ta-1" name="send_email_config">{$data.send_email_config}</textarea>
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">ICO成本：</div>
+                    <div class="you">
+                    <input type="text" readonly="readonly" class="am-input-sm" id="doc-ipt-email-1" name="ico_base_price" value="{$data.ico_base_price}" placeholder="系统自动计算成本">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">现价：</div>
+                    <div class="you">
+                    <input type="text" readonly="readonly" class="am-input-sm" id="doc-ipt-email-1" name="ico_now_price" value="{$data.ico_now_price}"  placeholder="系统自动获取现价">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">目前收益率：</div>
+                    <div class="you">
+                    <input type="text" readonly="readonly" class="am-input-sm" id="doc-ipt-email-1" name="money_percent" value="{$data.money_percent}" placeholder="系统自动计算收益率">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">最高收益率：</div>
+                    <div class="you">
+                        {$data.hightpercent_time}
+                    <input type="text" readonly="readonly" class="am-input-sm" id="doc-ipt-email-1" name="hight_percent" value="{$data.money_percent}" placeholder="系统自动计算收益率">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">最低收益率：</div>
+                    <div class="you">
+                        {$data.lowpercent_time}
+                    <input type="text" readonly="readonly" class="am-input-sm" id="doc-ipt-email-1" name="low_percent" value="{$data.money_percent}" placeholder="系统自动计算收益率">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="you" style="margin-left: 35%; ma">
+                        <input type="hidden" name="action" value="{$isadd}">
+                        <eq name="isadd" value="1">
+                            <input type="submit" name="submit" value="确认添加" class="am-btn am-btn-secondary am-radius">
+                        <else/>
+                            <input type="submit" name="submit" value="确认修改" class="am-btn am-btn-success am-radius">
+                        </eq> 
+                    </div>
+                </div>
+                </form>
+            </div>

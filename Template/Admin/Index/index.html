@@ -1,0 +1,77 @@
+    <div class=" admin-content">
+        <div class="daohang">
+            <ul>
+                <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页 </li>
+            </ul>
+        </div>
+        <div class="admin">
+            <div class="admin-index">
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
+                    <dt class="qs"><i class="am-icon-users"></i></dt>
+                    <dd>20</dd>
+                    <dd class="f12">团队数量</dd>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
+                    <dt class="cs"><i class="am-icon-area-chart"></i></dt>
+                    <dd>10</dd>
+                    <dd class="f12">项目总数</dd>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
+                    <dt class="ls"><i class="am-icon-cny"></i></dt>
+                    <dd>***</dd>
+                    <dd class="f12">全部收入</dd>
+                </dl>
+            </div>
+            <div class="admin-biaoge">
+                <div class="xinxitj">项目概况</div>
+                <table class="am-table">
+                    <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>交易所</th>
+                            <th>最新价格</th>
+                            <th>目前收益</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="prolist" id="proinfo">
+                            <tr>
+                                <td>{$proinfo.pro_name}</td>
+                                <td>{$proinfo.pro_trade_net}</td>
+                                <td>¥{$proinfo.pro_ico_lastprice}</td>
+                                <td>{$proinfo.pro_money_percent|default=0}%</td>
+                                <td><a href="#">更新价格</a></td>
+                            </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shuju" style="margin-bottom: 40px;">
+                <div class="shujuone">
+                    <dl>
+                        <foreach name="chenben" item="basebipro">
+                            <dt>投入{$basebipro.basebiname}：  {$basebipro.sum}</dt>
+                        </foreach>
+                        <dt>投入USDT:</dt>
+                    </dl>
+                    <ul>
+                        <h2>{$prv_percent}%</h2>
+                        <li>平均收益率</li>
+                    </ul>
+                </div>
+                <div class="shujutow">
+                    <dl>
+                        <foreach name="nowprice" item="basebinowinfo">
+                            <dt>现值{$basebinowinfo.basebiname}：  {$basebinowinfo.sum}</dt>
+                        </foreach>
+                        <dt>现值USDT:</dt>
+                    </dl>
+                    <ul>
+                        <h2>{$allpercent}%</h2>
+                        <li>总收益率</li>
+                    </ul>
+                </div>
+            </div>
+            <script type="text/javascript">jQuery(".slideTxtBox").slide();</script> 
+

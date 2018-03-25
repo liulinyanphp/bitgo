@@ -1,0 +1,30 @@
+[ 2018-03-25T23:41:44+08:00 ] ::1 /admin/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001327s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001048s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001107s ]
+NOTIC: [8] Undefined index: DB_PARAMS /Users/linyanliu/www/bitgo/Corlib/Library/Think/Db/Driver.class.php 第 103 行.
+SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `think_user` WHERE `id` = 5 LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: DB_PARAMS /Users/linyanliu/www/bitgo/Corlib/Library/Think/Db/Driver.class.php 第 103 行.
+SQL: select node.id,node.name from role as role,think_role_user as user,think_access as access ,think_node as node where user.user_id='5' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=1 and node.status=1 [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `data_project_config` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `data_project_config`  [ RunTime:0.0004s ]
+SQL: select pro_money_basebi_name as basebiname,sum(pro_money) as sum from data_project_config group by pro_money_basebi_name [ RunTime:0.0002s ]
+SQL: select pro_money_basebi_name as basebiname,round(sum(pro_num*pro_ico_now_price),5) as sum from data_project_config group by pro_money_basebi_name; [ RunTime:0.0002s ]
+SQL: select count(*) as count,sum(pro_money_percent) as percent from data_project_config where pro_alias!=1 [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000028s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000049s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.021062s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021079s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000499s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000513s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000621s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000640s ]
+
